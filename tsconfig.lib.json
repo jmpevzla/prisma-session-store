@@ -1,0 +1,12 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "dist",
+    "rootDir": "src",
+    "tsBuildInfoFile": "./.build-cache/lib",
+    "skipLibCheck": true
+  },
+  "exclude": ["**/*.spec.ts", "**/mocks/**/*.ts"],
+  "include": ["src/**/*.ts"],
+  "files": ["src/index.ts"]
+}
