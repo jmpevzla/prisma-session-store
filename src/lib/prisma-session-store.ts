@@ -473,44 +473,6 @@ export class PrismaSessionStore<M extends string = 'session'> extends Store {
       ...extras,
     };
 
-    // Extras Options
-    if (this.options.extrasPath && this.options.extras) {
-      const _session = session as Record<string, unknown>;
-      const sextras = loget(_session, this.options.extrasPath) as
-        | string
-        | undefined;
-
-      if (typeof sextras !== 'undefined' && this.isJson(sextras)) {
-        const objData = JSON.parse(sextras) as Record<string, unknown>;
-        const keys = Object.keys(this.options.extras);
-        const _data: Record<string, unknown> = data;
-        const _extras = this.options.extras;
-
-        for (let key of keys) {
-          const ekey = _extras[key] as string;
-          const value = objData[ekey];
-          if (typeof value !== 'undefined') {
-            let _value: any = value;
-            const et = this.options.extrasType;
-            if (et) {
-              switch (et[key]) {
-                case 'bigint':
-                  _value = BigInt(_value);
-                  break;
-                case 'number':
-                  _value = Number(_value);
-                  break;
-                case 'string':
-                  _value = String(_value);
-                  break;
-              }
-            }
-            _data[key] = _value;
-          }
-        }
-      }
-    }
-
     try {
       if (existingSession !== null) {
         await this.prisma[this.sessionModelName].update({
