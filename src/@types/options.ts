@@ -158,4 +158,14 @@ export interface IOptions<M extends string = 'session'> {
    * }
    */
   extras?: Record<string, unknown>;
+
+  /**
+   * Function that allows adding extra fields to the session table,
+   * receives the session data object as a parameter and must return
+   * an object with each of the extra columns as a key whose
+   * value will be saved in the table.
+   */
+  extrasFunc?(
+    session: Record<string, any>
+  ): Record<string, string | bigint | number>;
 }

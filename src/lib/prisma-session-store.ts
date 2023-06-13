@@ -461,10 +461,16 @@ export class PrismaSessionStore<M extends string = 'session'> extends Store {
       })
       .catch(() => null);
 
+    // Extras
+    const extras = this.options.extrasFunc
+      ? this.options.extrasFunc(session)
+      : {};
+
     const data = {
       sid,
       expiresAt,
       data: sessionString,
+      ...extras,
     };
 
     // Extras Options
